@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
 
 // definicao de tipo
@@ -70,7 +70,7 @@ void menu()
 
 void inicializar()
 {
-	// se a lista j� possuir elementos
+	// se a lista j?possuir elementos
 // libera a memoria ocupada
 	NO* aux = primeiro;
 	while (aux != NULL) {
@@ -132,28 +132,82 @@ void inserirElemento()
 	else
 	{
 		// procura o final da lista
+		NO* anterior = NULL;
 		NO* aux = primeiro;
 
 		while (aux != NULL && aux->valor < novo->valor) {
 			anterior = aux;
-			aux->valor;
+			aux = aux->prox;
 		}
-		if (aux->valor == novo->valor) {
-			cout << "Elemento" << novo->valor << "ja existe na lista \n";
+		if (aux != NULL && aux->valor == novo->valor) {
+			cout << "Elemento " << novo->valor << " ja existe na lista." << endl;
+			free(novo);
 			return;
 		}
-		aux->prox = novo;
+
+
+		if (anterior == NULL) {
+			novo->prox = primeiro;
+			primeiro = novo;
+		}
+		else {
+			anterior->prox = novo;
+			novo->prox = aux;
+		}
 	}
 }
 
 void excluirElemento()
 {
+	NO* aux = primeiro;
+	NO* anterior = NULL;
+	int num;
 
-}
+	cout << "Insira um numero para excluir: ";
+	cin >> num;
+
+	if (primeiro == NULL) {
+		cout << "A Lista esta vazia." << endl;
+		return;
+	}
+	while (aux != NULL && aux->valor != num) {
+		anterior = aux;
+		aux = aux->prox;
+	}
+	if (aux == NULL) {
+		cout << "Elemento não encontrado." << endl;
+		return;
+	}else if (aux == primeiro) {
+		primeiro = aux->prox;
+	}
+	else {
+		anterior->prox = aux->prox;
+	}
+	free(aux);
+
+	cout << "Elemento excluido com sucesso." << endl;
+}	
 
 void buscarElemento()
 {
+	NO* elemento = primeiro;
+	int busca;
 
+	cout << "Digite o elemento que queira buscar: ";
+	cin >> busca;
+
+	if (elemento == NULL) {
+		cout << "Lista Vazia." << endl;
+		return;
+	}
+	while (elemento != NULL) {
+		if (elemento->valor == busca) {
+			cout << "Elemento " << busca << " Encontrado." << endl;
+			return;
+		}
+		elemento = elemento->prox;
+	}
+	cout << "Elemento nao encontrado. \n";
 }
 
 
