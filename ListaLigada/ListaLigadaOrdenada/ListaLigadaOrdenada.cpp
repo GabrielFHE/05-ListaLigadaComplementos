@@ -133,8 +133,14 @@ void inserirElemento()
 	{
 		// procura o final da lista
 		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
+
+		while (aux != NULL && aux->valor < novo->valor) {
+			anterior = aux;
+			aux->valor;
+		}
+		if (aux->valor == novo->valor) {
+			cout << "Elemento" << novo->valor << "ja existe na lista \n";
+			return;
 		}
 		aux->prox = novo;
 	}
